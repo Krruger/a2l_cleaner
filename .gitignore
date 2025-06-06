@@ -3,3 +3,5 @@ __pycache__/
 .env
 a2l.db
 uploads/
+./backend/idea
+.venv
