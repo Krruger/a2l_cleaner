@@ -5,3 +5,5 @@ a2l.db
 uploads/
 ./backend/idea
 .venv
+.idea
+.vscode
