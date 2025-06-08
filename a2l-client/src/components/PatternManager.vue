@@ -26,16 +26,28 @@
     <!-- Lista patternów -->
     <div v-if="patterns.length" class="bg-white shadow rounded-lg p-4">
       <h3 class="font-semibold mb-2">Zdefiniowane patterny:</h3>
-      <ul class="list-disc list-inside space-y-1">
-        <li v-for="p in patterns" :key="p.id">{{ p.value }}</li>
-      </ul>
+        <ul>
+        <li
+            v-for="pattern in patterns"
+            :key="pattern.id"
+            class="flex justify-between items-center bg-gray-100 px-4 py-2 my-1 rounded"
+        >
+            <span>{{  pattern.value  }}</span>
+            <button
+            @click="removePattern(pattern.id)"
+            class="text-red-500 hover:text-red-700 font-semibold"
+            >
+            Remove
+            </button>
+        </li>
+        </ul>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, watch, onMounted } from 'vue'
-import { getGroups, createGroup, getPatterns, addPatternToGroup } from '../api'
+import { getGroups, createGroup, getPatterns, addPatternToGroup, removePatternReq } from '../api'
 
 const newGroupName = ref('')
 const groups = ref([])
@@ -61,9 +73,20 @@ async function addPattern() {
   await loadPatterns()
 }
 
+
 async function loadPatterns() {
   if (selectedGroupId.value) {
     patterns.value = await getPatterns(selectedGroupId.value)
+  }
+}
+
+const removePattern = async (patternId) => {
+  try {
+    console.log(selectedGroupId)
+    await removePatternReq(selectedGroupId.value,patternId)
+    await loadPatterns() // odśwież listę
+  } catch (err) {
+    console.error("Błąd przy usuwaniu patternu:", err)
   }
 }
 
