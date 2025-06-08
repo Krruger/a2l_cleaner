@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 import os
 from dotenv import load_dotenv
 
+
 load_dotenv()  # czyta z .env tylko lokalnie
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./a2l.db")
