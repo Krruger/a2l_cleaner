@@ -40,7 +40,7 @@
             Remove
             </button>
         </li>
-        </ul>
+      </ul>
     </div>
   </div>
 </template>
